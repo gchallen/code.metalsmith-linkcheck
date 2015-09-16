@@ -6,7 +6,7 @@ This is a plugin for [Metalsmith][] that checks links.
 
 ## Installation
 
-This module is released via npm, install the latest released version with
+This module is released via npm, install the latest released version with:
 
 ```
 npm install --save metalsmith-linkcheck
@@ -35,20 +35,15 @@ require('metalsmith')(__dirname)
 
 Because metalsmith-linkcheck will only check HTML pages, normally you will
 want to use metalsmith-linkcheck at the end of your build pipeline when all
-of your HTML pages have been generated.
+of your HTML pages have been generated. *Note that metalsmith-linkcheck
+requires network access* (duh) and, if the `optimizeInternal` option is not
+set, a running local webserver to test internal links.
 
 ## Options
 
 metalsmith-linkcheck does not require any options, but the following options
 are available:
 
-- `src` is a globbing pattern that specifies which files to linkcheck
-- `target` is an imagemagick format specifier
-- `extension` the file extension to use for the conversion target (starting with `.`). Set to `"." + target` if not given explicitly.
-- `remove` if set to `true`, don't include the source-file in the build directory.
-- `resize` set to `{width: XXX, height: YYY}` to resize the image; the name will reflect the size (`name_XXX_YYY.ext`) if `nameFormat` is not given.
-- `nameFormat` give the format for the names of the linkchecked files, the following placeholders are available
-  - `%b` the basename of the source file, e.g. given `source.png`, the value will be `source`
-  - `%e` the extension of the target format, including the dot
-  - `%x` the width of the resulting image
-  - `%y` the height if the resulting image
+- `optimizeInternal`: if set, metalsmith-linkcheck will look for internal
+  links in the metalsmith output files, rather than by contacting a local
+  webserver. If disabled, `internalHost` must be set. *Defaults to true.*

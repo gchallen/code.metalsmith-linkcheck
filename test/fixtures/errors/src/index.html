@@ -7,7 +7,7 @@
 <title>metalsmith-linkcheck Test Page</title>
 
 <!-- Working internal stylesheet link. -->
-<link rel="stylesheet" type="text/css" href="/assets/css/site.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/working.css">
 
 <!-- Broken internal stylesheet link. -->
 <link rel="stylesheet" type="text/css" href="/assets/css/broken.css">
@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
 <!-- Broken external stylesheet link (sorry Google). -->
-<link rel="stylesheet" type="text/css" href="https://www.google.com/missing/missing.css">
+<link rel="stylesheet" type="text/css" href="https://www.google.com/broken.css">
 
 </head>
 
@@ -38,7 +38,37 @@
 <img src="https://g.twimg.com/twitter-bird-16x16.png" alt="Working external image.">
 
 <!-- Broken external image link (sorry Twitter). -->
-<img src="https://g.twimg.com/twitter-dog-16x16.png" alt="Broken external image.">
+<img src="https://g.twimg.com/broken.png" alt="Broken external image.">
+
+<!-- Working internal page link. -->
+<a href="working.html">Working link.</a>
+
+<!-- Broken internal page link. -->
+<a href="broken.html">Broken link.</a>
+
+<!-- Working external page link (sorry Facebook). -->
+<a href="http://www.facebook.com">Working external link.</a>
+
+<!-- Broken external page link (sorry again, Google). -->
+<a href="http://www.google.com/broken.html">Broken external link.</a>
+
+<!-- Broken attempt at an external link. -->
+<a href="www.broken.com">Broken attempt at an external link.</a>
+
+<!-- Working protocol-independent link (sorry, Yahoo). -->
+<a href="//www.yahoo.com">Working protocol-independent link.</a>
+
+<!-- Working internal Javascript link. -->
+<script src="/assets/js/working.js"></script>
+
+<!-- Broken internal Javascript link. -->
+<script src="/assets/js/site.js"></script>
+
+<!-- Working external Javascript link (sorry Bootstrap). -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- Broken external Javascript link (sorry Google). -->
+<script src="http://www.google.com/broken.js"></script>
 
 </body>
 </html>

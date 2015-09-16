@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://gitlab.com/blue-systems-group/code.metalsmith-linkcheck/issues"
   },
-  "homepage": "https://gitlab.com/blue-systems-group/code.metalsmith-linkcheck#README",
+  "homepage": "https://gitlab.com/blue-systems-group/code.metalsmith-linkcheck",
   "repository": {
     "type": "git",
     "url": "git@gitlab.com:blue-systems-group/code.metalsmith-linkcheck.git"

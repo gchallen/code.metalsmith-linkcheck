@@ -4,10 +4,10 @@ var assert = require('assert'),
     metalsmith = require('metalsmith'),
     linkcheck = require('..');
 
-function linkcheck_test(options, fn) {
+function linkcheck_test(src, options, fn) {
   var once = false;
 
-  metalsmith('test/fixtures/errors').use(linkcheck(options)).build(function(err, files) {
+  metalsmith(src).use(linkcheck(options)).build(function(err, files) {
     if (once) return;
     once = true;
     fn(err, files);
@@ -15,8 +15,10 @@ function linkcheck_test(options, fn) {
 }
 
 describe('metalsmith-linkcheck', function() {
+  var src = 'test/fixtures/errors';
+
   it('should work and not fail without parameters', function(done){
-    linkcheck_test({}, function(err, files) {
+    linkcheck_test(src, {}, function(err, files) {
       if (err) return done(err);
       return done();
     });

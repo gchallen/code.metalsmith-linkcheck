@@ -47,3 +47,5 @@ are available:
 - `optimizeInternal`: if set, metalsmith-linkcheck will look for internal
   links in the metalsmith output files, rather than by contacting a local
   webserver. If disabled, `internalHost` must be set. **Defaults to true.**
+- `failMissing`: if set the metalsmith build process will halt if links are
+  missing. **Defaults to false.**

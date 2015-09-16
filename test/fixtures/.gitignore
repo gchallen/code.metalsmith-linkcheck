@@ -1,2 +1,3 @@
 */build/*
-links_checked.json
+.links_checked.json
+links_failed.json

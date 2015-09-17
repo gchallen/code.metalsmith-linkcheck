@@ -38,6 +38,14 @@ var external_broken = [
   "http://www.google.com/broken.html",
   "http://www.google.com/broken.js"
 ];
+var external_working = [
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
+  "https://g.twimg.com/twitter-bird-16x16.png",
+  "http://www.facebook.com",
+  "http://www.yahoo.com",
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+];
+
 var all_broken = internal_broken.concat(external_broken);
 
 describe('metalsmith-linkcheck', function() {
@@ -54,6 +62,8 @@ describe('metalsmith-linkcheck', function() {
           return done(err);
         }
         assert.pathExists(test_defaults.checkFile);
+        var checked = jsonfile.readFileSync(test_defaults.checkFile);
+        assert.deepEqual(_.keys(checked).sort(), external_working.sort());
         assert.pathExists(test_defaults.failFile);
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
@@ -75,14 +85,37 @@ describe('metalsmith-linkcheck', function() {
       .build(function (err) {
         if (!err) {
           return done(new Error("should fail"));
-        } else {
-          assert.pathExists(test_defaults.failFile);
-
-          var broken = jsonfile.readFileSync(test_defaults.failFile);
-          assert.deepEqual(broken.sort(), internal_broken.sort());
-
-          done();
         }
+        assert.pathExists(test_defaults.failFile);
+        assert.notPathExists(test_defaults.checkFile);
+
+        var broken = jsonfile.readFileSync(test_defaults.failFile);
+        assert.deepEqual(broken.sort(), internal_broken.sort());
+
+        done();
       });
-    });
+  });
+
+  it('should not cache links checks when told not to', function(done) {
+    var src = 'test/fixtures/errors';
+    var defaults = _.clone(linkcheckDefaults.defaults);
+    defaults.cacheChecks = false;
+    var test_defaults = linkcheckDefaults.processConfig(path.join(src, 'src'), defaults);
+    reset_files(test_defaults);
+
+    metalsmith(src)
+      .use(linkcheck(defaults))
+      .build(function (err) {
+        if (err) {
+          return done(err);
+        }
+        assert.pathExists(test_defaults.failFile);
+        assert.notPathExists(test_defaults.checkFile);
+
+        var broken = jsonfile.readFileSync(test_defaults.failFile);
+        assert.deepEqual(broken.sort(), broken.sort());
+
+        done();
+      });
+  });
 });

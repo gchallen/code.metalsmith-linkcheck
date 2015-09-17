@@ -6,6 +6,7 @@ var metalsmith = require('metalsmith'),
     _ = require('underscore'),
     chai = require('chai'),
     jsonfile = require('jsonfile'),
+    async = require('async'),
     linkcheck = require('..'),
     linkcheckDefaults = require('../lib/linkcheckDefaults.js');
 
@@ -117,5 +118,52 @@ describe('metalsmith-linkcheck', function() {
 
         done();
       });
+  });
+  
+  it('should cache links checks when told to', function(done) {
+    var src = 'test/fixtures/errors';
+    var defaults = _.clone(linkcheckDefaults.defaults);
+    var test_defaults = linkcheckDefaults.processConfig(path.join(src, 'src'), defaults);
+    reset_files(test_defaults);
+    
+    var check;
+    async.series([
+        function (callback) {
+          metalsmith(src)
+            .use(linkcheck(defaults))
+            .build(function (err) {
+              if (err) {
+                return done(err);
+              }
+              assert.pathExists(test_defaults.failFile);
+              assert.pathExists(test_defaults.checkFile);
+
+              var broken = jsonfile.readFileSync(test_defaults.failFile);
+              assert.deepEqual(broken.sort(), broken.sort());
+
+              check = jsonfile.readFileSync(test_defaults.checkFile);
+
+              callback();
+            });
+        },
+        function (callback) {
+          metalsmith(src)
+            .use(linkcheck(defaults))
+            .build(function (err) {
+              if (err) {
+                return done(err);
+              }
+              assert.pathExists(test_defaults.failFile);
+              assert.pathExists(test_defaults.checkFile);
+
+              var broken = jsonfile.readFileSync(test_defaults.failFile);
+              assert.deepEqual(broken.sort(), broken.sort());
+
+              assert.deepEqual(jsonfile.readFileSync(test_defaults.checkFile), check);
+
+              done();
+            });
+        }
+    ]);
   });
 });

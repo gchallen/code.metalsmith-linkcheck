@@ -54,8 +54,9 @@ are available:
 (default : *true*)
 
 If set, metalsmith-linkcheck will fail if no network
-  connection is available. Otherwise, it will check internal links if
-  `optimizeInternal` is set. Otherwise it will do nothing.
+connection is available. Otherwise, it will still check internal links before
+exiting. Note in this case that external links will not be reported as
+failing.
 
 #### `failMissing` (optional)
 

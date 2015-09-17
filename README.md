@@ -44,6 +44,10 @@ set, a running local webserver to test internal links.
 metalsmith-linkcheck does not require any options, but the following options
 are available:
 
+- `failWithoutNetwork`: if set, metalsmith-linkcheck will fail if no network
+  connection is available. Otherwise, it will check internal links if
+  `optimizeInternal` is set. Otherwise it will do nothing. **Defaults to
+  true.**
 - `optimizeInternal`: if set, metalsmith-linkcheck will look for internal
   links in the metalsmith output files, rather than by contacting a local
   webserver. If disabled, `internalHost` must be set. **Defaults to true.**

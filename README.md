@@ -39,8 +39,10 @@ require('metalsmith')(__dirname)
 Because metalsmith-linkcheck will only check HTML pages, normally you will
 want to use metalsmith-linkcheck at the end of your build pipeline when all
 of your HTML pages have been generated. **Note that metalsmith-linkcheck
-requires network access** (duh) and, if the `optimizeInternal` option is not
-set, a running local webserver to test internal links.
+requires network access** (duh). In addition, relative and root-relative
+local links are checked by looking for them in the metalsmith files array,
+and so this may not work if you using local links to things not included in
+your Metalsmith build.
 
 ### Options
 

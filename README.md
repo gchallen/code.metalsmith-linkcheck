@@ -49,3 +49,16 @@ are available:
   webserver. If disabled, `internalHost` must be set. **Defaults to true.**
 - `failMissing`: if set the metalsmith build process will halt if links are
   missing. **Defaults to false.**
+- `cacheChecks`: if set metalsmith-linkcheck will record when external links
+  succeed in `checkFile` and not repeat the check for an interval set by
+  `recheckMinutes`. **Defaults to true.**
+- `recheckMinutes`: determines the length between successive link checks when
+  `cacheChecks` is set to true. **Defaults to 1440 (24 hours).**
+- `checkFile`: path relative to the metalsmith source directory where
+  metalsmith-linkcheck caches link check information. **Defaults to
+  `.links_checked.json`.**
+- `ignoreFile`: path relative to the metalsmith source directory to a JSON
+  file containing an array of links to ignore. **Defaults to
+  `links_ignore.json`.**
+- `failFile`: path relative to the metalsmith source directory to a JSON file
+  where link failures are recorded.

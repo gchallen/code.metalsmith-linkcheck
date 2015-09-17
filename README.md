@@ -55,6 +55,7 @@ If set, metalsmith-linkcheck will fail if no network
   connection is available. Otherwise, it will check internal links if
   `optimizeInternal` is set. Otherwise it will do nothing.
 
+<!--
 #### `optimizeInternal` (optional)
 
 (default : *true*)
@@ -62,6 +63,13 @@ If set, metalsmith-linkcheck will fail if no network
 If set, metalsmith-linkcheck will look for internal
   links in the metalsmith output files, rather than by contacting a local
   webserver. If disabled, `internalHost` must be set.
+
+#### `internalHost` (optional)
+
+(default : undefined)
+
+Internal host and port to use if not optimizing internal link checks.
+-->
 
 #### `failMissing` (optional)
 

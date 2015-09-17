@@ -61,4 +61,4 @@ are available:
   file containing an array of links to ignore. **Defaults to
   `links_ignore.json`.**
 - `failFile`: path relative to the metalsmith source directory to a JSON file
-  where link failures are recorded.
+  where link failures are recorded. **Defaults to `links_failed.json`.**

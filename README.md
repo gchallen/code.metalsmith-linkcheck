@@ -1,6 +1,9 @@
 # metalsmith-linkcheck
 
-This is a plugin for [Metalsmith][] that checks links.
+This is a plugin for [Metalsmith][] that checks links--both internal and
+external. (In contrast to
+[metalsmith-broken-link-checker](https://github.com/davidxmoody/metalsmith-broken-link-checker),
+which only checks internal links.)
 
 [metalsmith]: http://metalsmith.io
 
@@ -39,30 +42,64 @@ of your HTML pages have been generated. **Note that metalsmith-linkcheck
 requires network access** (duh) and, if the `optimizeInternal` option is not
 set, a running local webserver to test internal links.
 
-## Options
+### Options
 
 metalsmith-linkcheck does not require any options, but the following options
 are available:
 
-- `failWithoutNetwork`: if set, metalsmith-linkcheck will fail if no network
+#### `failWithoutNetwork` (optional)
+
+(default : *true*)
+
+If set, metalsmith-linkcheck will fail if no network
   connection is available. Otherwise, it will check internal links if
-  `optimizeInternal` is set. Otherwise it will do nothing. **Defaults to
-  true.**
-- `optimizeInternal`: if set, metalsmith-linkcheck will look for internal
+  `optimizeInternal` is set. Otherwise it will do nothing.
+
+#### `optimizeInternal` (optional)
+
+(default : *true*)
+
+If set, metalsmith-linkcheck will look for internal
   links in the metalsmith output files, rather than by contacting a local
-  webserver. If disabled, `internalHost` must be set. **Defaults to true.**
-- `failMissing`: if set the metalsmith build process will halt if links are
-  missing. **Defaults to false.**
-- `cacheChecks`: if set metalsmith-linkcheck will record when external links
-  succeed in `checkFile` and not repeat the check for an interval set by
-  `recheckMinutes`. **Defaults to true.**
-- `recheckMinutes`: determines the length between successive link checks when
-  `cacheChecks` is set to true. **Defaults to 1440 (24 hours).**
-- `checkFile`: path relative to the metalsmith source directory where
-  metalsmith-linkcheck caches link check information. **Defaults to
-  `.links_checked.json`.**
-- `ignoreFile`: path relative to the metalsmith source directory to a JSON
-  file containing an array of links to ignore. **Defaults to
-  `links_ignore.json`.**
-- `failFile`: path relative to the metalsmith source directory to a JSON file
-  where link failures are recorded. **Defaults to `links_failed.json`.**
+  webserver. If disabled, `internalHost` must be set.
+
+#### `failMissing` (optional)
+
+(default: *false*)
+
+If set the metalsmith build process will halt if links are missing.
+
+#### `cacheChecks` (optional)
+
+(default: *true*)
+
+If set metalsmith-linkcheck will record when external links succeed in
+`checkFile` and not repeat the check for an interval set by `recheckMinutes`.
+
+#### `recheckMinutes` (optional)
+
+(default : *1440* (24 hours))
+
+Determines the length between successive link checks when `cacheChecks` is
+set to true.
+
+#### `checkFile` (optional)
+
+(default: *`.links_checked.json`*)
+
+Path relative to the metalsmith source directory where
+  metalsmith-linkcheck caches link check information.
+
+#### `ignoreFile` (optional)
+
+(default: *`links_ignore.json`*)
+
+Path relative to the metalsmith source directory to a JSON
+  file containing an array of links to ignore.
+
+#### `failFile` (optional)
+
+(default: *`links_failed.json`*)
+
+Path relative to the metalsmith source directory to a JSON file where link
+failures are recorded.

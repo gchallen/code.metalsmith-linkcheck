@@ -83,21 +83,23 @@ set to true.
 (default: *`.links_checked.json`*)
 
 Path relative to the metalsmith source directory where
-  metalsmith-linkcheck caches link check information.
+metalsmith-linkcheck caches link check information. This will be removed from
+the build directory.
 
 #### `ignoreFile` (optional)
 
 (default: *`links_ignore.json`*)
 
 Path relative to the metalsmith source directory to a JSON
-  file containing an array of links to ignore.
+file containing an array of links to ignore. This will be removed from the
+build directory.
 
 #### `failFile` (optional)
 
 (default: *`links_failed.json`*)
 
 Path relative to the metalsmith source directory to a JSON file where link
-failures are recorded.
+failures are recorded. This will be removed from the build directory.
 
 <!--
 #### `optimizeInternal` (optional)

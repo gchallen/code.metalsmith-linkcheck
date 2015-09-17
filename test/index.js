@@ -53,7 +53,7 @@ describe('metalsmith-linkcheck', function() {
   it('should identify all broken links with the default parameters', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
-    var test_defaults = linkcheckDefaults.processConfig(path.join(src, 'src'), defaults);
+    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
     metalsmith(src)
@@ -78,7 +78,7 @@ describe('metalsmith-linkcheck', function() {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
     defaults.failMissing = true;
-    var test_defaults = linkcheckDefaults.processConfig(path.join(src, 'src'), defaults);
+    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
     metalsmith(src)
@@ -101,7 +101,7 @@ describe('metalsmith-linkcheck', function() {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
     defaults.cacheChecks = false;
-    var test_defaults = linkcheckDefaults.processConfig(path.join(src, 'src'), defaults);
+    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
     metalsmith(src)
@@ -123,7 +123,7 @@ describe('metalsmith-linkcheck', function() {
   it('should cache links checks when told to', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
-    var test_defaults = linkcheckDefaults.processConfig(path.join(src, 'src'), defaults);
+    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
     
     var check;
@@ -165,5 +165,32 @@ describe('metalsmith-linkcheck', function() {
             });
         }
     ]);
+  });
+  
+  it('should ignore links when told to', function(done) {
+    var ignore_broken = [
+      "/assets/css/broken.css",
+      "https://www.google.com/broken.css"
+    ];
+    var src = 'test/fixtures/errors';
+    var defaults = _.clone(linkcheckDefaults.defaults);
+    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
+    reset_files(test_defaults);
+    jsonfile.writeFileSync(ignore_broken, test_defaults.ignoreFile);
+
+    metalsmith(src)
+      .use(linkcheck(defaults))
+      .build(function (err) {
+        if (err) {
+          return done(err);
+        }
+        assert.pathExists(test_defaults.failFile);
+        assert.notPathExists(test_defaults.checkFile);
+
+        var broken = jsonfile.readFileSync(test_defaults.failFile);
+        assert.deepEqual(broken.sort(), broken.sort());
+
+        done();
+      });
   });
 });

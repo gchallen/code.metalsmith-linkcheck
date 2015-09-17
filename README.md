@@ -1,6 +1,6 @@
 # metalsmith-linkcheck
 
-This is a plugin for [Metalsmith][] that checks links--both internal and
+This is a plugin for [Metalsmith][] that checks links&mdash;both internal and
 external. (In contrast to
 [metalsmith-broken-link-checker](https://github.com/davidxmoody/metalsmith-broken-link-checker),
 which only checks internal links.)

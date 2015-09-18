@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-linkcheck",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Metalsmith plugin for checking links",
   "readmeFilename": "README.md",
   "bugs": {

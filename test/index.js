@@ -28,6 +28,12 @@ function reset_files(test_defaults) {
   assert.notPathExists(test_defaults.failFile);
 }
 
+function check_files(files, defaults) {
+  assert(!(defaults.checkFile in files));
+  assert(!(defaults.ignoreFile in files));
+  assert(!(defaults.failFile in files));
+}
+
 var internal_broken = [
   "/assets/css/broken.css",
   "/assets/img/broken.jpg",
@@ -61,7 +67,7 @@ describe('metalsmith-linkcheck', function() {
 
     metalsmith(src)
       .use(linkcheck(defaults))
-      .build(function (err) {
+      .build(function (err, files) {
         if (err) {
           return done(err);
         }
@@ -72,7 +78,8 @@ describe('metalsmith-linkcheck', function() {
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
         assert.deepEqual(broken.sort(), all_broken.sort());
-
+        
+        check_files(files, defaults);
         done();
       });
   });
@@ -86,7 +93,7 @@ describe('metalsmith-linkcheck', function() {
 
     metalsmith(src)
       .use(linkcheck(defaults))
-      .build(function (err) {
+      .build(function (err, files) {
         if (!err) {
           return done(new Error("should fail"));
         }
@@ -109,7 +116,7 @@ describe('metalsmith-linkcheck', function() {
 
     metalsmith(src)
       .use(linkcheck(defaults))
-      .build(function (err) {
+      .build(function (err, files) {
         if (err) {
           return done(err);
         }
@@ -119,6 +126,7 @@ describe('metalsmith-linkcheck', function() {
         var broken = jsonfile.readFileSync(test_defaults.failFile);
         assert.deepEqual(broken.sort(), all_broken.sort());
 
+        check_files(files, defaults);
         done();
       });
   });
@@ -134,7 +142,7 @@ describe('metalsmith-linkcheck', function() {
         function (callback) {
           metalsmith(src)
             .use(linkcheck(defaults))
-            .build(function (err) {
+            .build(function (err, files) {
               if (err) {
                 return done(err);
               }
@@ -146,26 +154,27 @@ describe('metalsmith-linkcheck', function() {
               var broken = jsonfile.readFileSync(test_defaults.failFile);
               assert.deepEqual(broken.sort(), all_broken.sort());
 
+              check_files(files, defaults);
               callback();
             });
         },
         function (callback) {
           metalsmith(src)
             .use(linkcheck(defaults))
-            .build(function (err) {
+            .build(function (err, files) {
               if (err) {
                 return done(err);
               }
               assert.pathExists(test_defaults.checkFile);
-              check = jsonfile.readFileSync(test_defaults.checkFile);
-              assert.deepEqual(_.keys(check).sort(), external_working.sort());
+              var second_check = jsonfile.readFileSync(test_defaults.checkFile);
+              assert.deepEqual(_.keys(second_check).sort(), external_working.sort());
+              assert.deepEqual(second_check, check);
 
               assert.pathExists(test_defaults.failFile);
               var broken = jsonfile.readFileSync(test_defaults.failFile);
               assert.deepEqual(broken.sort(), all_broken.sort());
 
-              assert.deepEqual(jsonfile.readFileSync(test_defaults.checkFile), check);
-
+              check_files(files, defaults);
               done();
             });
         }
@@ -186,7 +195,7 @@ describe('metalsmith-linkcheck', function() {
 
     metalsmith(src)
       .use(linkcheck(defaults))
-      .build(function (err) {
+      .build(function (err, files) {
         if (err) {
           return done(err);
         }
@@ -199,6 +208,7 @@ describe('metalsmith-linkcheck', function() {
         var our_broken = _.difference(all_broken, ignore);
         assert.deepEqual(broken.sort(), our_broken.sort());
 
+        check_files(files, defaults);
         reset_files(test_defaults);
         done();
       });

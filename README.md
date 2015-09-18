@@ -49,6 +49,12 @@ your Metalsmith build.
 metalsmith-linkcheck does not require any options, but the following options
 are available:
 
+#### `verbose` (optional)
+
+(default: *false*)
+
+If set a message will be printed if links fail. 
+
 #### `failWithoutNetwork` (optional)
 
 (default : *true*)

@@ -62,6 +62,7 @@ describe('metalsmith-linkcheck', function() {
   it('should identify all broken links with the default parameters', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
+    defaults.verbose = false;
     var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
@@ -87,6 +88,7 @@ describe('metalsmith-linkcheck', function() {
   it('should identify only internal broken links when asked to fail', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
+    defaults.verbose = false;
     defaults.failMissing = true;
     var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
@@ -110,6 +112,7 @@ describe('metalsmith-linkcheck', function() {
   it('should not cache links checks when told not to', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
+    defaults.verbose = false;
     defaults.cacheChecks = false;
     var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
@@ -134,6 +137,7 @@ describe('metalsmith-linkcheck', function() {
   it('should cache links checks when told to', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
+    defaults.verbose = false;
     var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
     
@@ -189,6 +193,7 @@ describe('metalsmith-linkcheck', function() {
     ];
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
+    defaults.verbose = false;
     var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
     jsonfile.writeFileSync(test_defaults.ignoreFile, ignore);

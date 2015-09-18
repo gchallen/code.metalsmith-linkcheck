@@ -20,6 +20,9 @@ function reset_files(test_defaults) {
   try {
     fs.unlinkSync(test_defaults.failFile);
   } catch (err) {};
+  try {
+    fs.unlinkSync(test_defaults.ignoreFile);
+  } catch (err) {};
   assert.notPathExists(test_defaults.ignoreFile);
   assert.notPathExists(test_defaults.checkFile);
   assert.notPathExists(test_defaults.failFile);
@@ -114,7 +117,7 @@ describe('metalsmith-linkcheck', function() {
         assert.notPathExists(test_defaults.checkFile);
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
-        assert.deepEqual(broken.sort(), broken.sort());
+        assert.deepEqual(broken.sort(), all_broken.sort());
 
         done();
       });
@@ -135,13 +138,13 @@ describe('metalsmith-linkcheck', function() {
               if (err) {
                 return done(err);
               }
-              assert.pathExists(test_defaults.failFile);
               assert.pathExists(test_defaults.checkFile);
-
-              var broken = jsonfile.readFileSync(test_defaults.failFile);
-              assert.deepEqual(broken.sort(), broken.sort());
-
               check = jsonfile.readFileSync(test_defaults.checkFile);
+              assert.deepEqual(_.keys(check).sort(), external_working.sort());
+
+              assert.pathExists(test_defaults.failFile);
+              var broken = jsonfile.readFileSync(test_defaults.failFile);
+              assert.deepEqual(broken.sort(), all_broken.sort());
 
               callback();
             });
@@ -153,11 +156,13 @@ describe('metalsmith-linkcheck', function() {
               if (err) {
                 return done(err);
               }
-              assert.pathExists(test_defaults.failFile);
               assert.pathExists(test_defaults.checkFile);
+              check = jsonfile.readFileSync(test_defaults.checkFile);
+              assert.deepEqual(_.keys(check).sort(), external_working.sort());
 
+              assert.pathExists(test_defaults.failFile);
               var broken = jsonfile.readFileSync(test_defaults.failFile);
-              assert.deepEqual(broken.sort(), broken.sort());
+              assert.deepEqual(broken.sort(), all_broken.sort());
 
               assert.deepEqual(jsonfile.readFileSync(test_defaults.checkFile), check);
 
@@ -168,15 +173,16 @@ describe('metalsmith-linkcheck', function() {
   });
   
   it('should ignore links when told to', function(done) {
-    var ignore_broken = [
+    var ignore = [
       "/assets/css/broken.css",
-      "https://www.google.com/broken.css"
+    "https://www.google.com/broken.css",
+      "http://www.yahoo.com"
     ];
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheckDefaults.defaults);
     var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
-    jsonfile.writeFileSync(ignore_broken, test_defaults.ignoreFile);
+    jsonfile.writeFileSync(test_defaults.ignoreFile, ignore);
 
     metalsmith(src)
       .use(linkcheck(defaults))
@@ -184,12 +190,16 @@ describe('metalsmith-linkcheck', function() {
         if (err) {
           return done(err);
         }
+        assert.pathExists(test_defaults.checkFile);
+        check = jsonfile.readFileSync(test_defaults.checkFile);
+        assert.deepEqual(_.keys(check).sort(), _.difference(external_working, ignore).sort());
+
         assert.pathExists(test_defaults.failFile);
-        assert.notPathExists(test_defaults.checkFile);
-
         var broken = jsonfile.readFileSync(test_defaults.failFile);
-        assert.deepEqual(broken.sort(), broken.sort());
+        var our_broken = _.difference(all_broken, ignore);
+        assert.deepEqual(broken.sort(), our_broken.sort());
 
+        reset_files(test_defaults);
         done();
       });
   });

@@ -1,3 +1,4 @@
 */build/*
 .links_checked.json
 links_failed.json
+links_ignore.json

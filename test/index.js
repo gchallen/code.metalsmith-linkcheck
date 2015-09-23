@@ -7,6 +7,7 @@ var metalsmith = require('metalsmith'),
     chai = require('chai'),
     jsonfile = require('jsonfile'),
     async = require('async'),
+    powerAssert = require('power-assert'),
     linkcheck = require('..'),
     linkcheckDefaults = require('../lib/linkcheckDefaults.js');
 
@@ -74,11 +75,11 @@ describe('metalsmith-linkcheck', function() {
         }
         assert.pathExists(test_defaults.checkFile);
         var checked = jsonfile.readFileSync(test_defaults.checkFile);
-        assert.deepEqual(_.keys(checked).sort(), external_working.sort());
+        powerAssert.deepEqual(_.keys(checked).sort(), external_working.sort());
         assert.pathExists(test_defaults.failFile);
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
-        assert.deepEqual(broken.sort(), all_broken.sort());
+        powerAssert.deepEqual(broken.sort(), all_broken.sort());
         
         check_files(files, defaults);
         done();
@@ -103,7 +104,7 @@ describe('metalsmith-linkcheck', function() {
         assert.notPathExists(test_defaults.checkFile);
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
-        assert.deepEqual(broken.sort(), internal_broken.sort());
+        powerAssert.deepEqual(broken.sort(), internal_broken.sort());
 
         done();
       });
@@ -127,7 +128,7 @@ describe('metalsmith-linkcheck', function() {
         assert.notPathExists(test_defaults.checkFile);
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
-        assert.deepEqual(broken.sort(), all_broken.sort());
+        powerAssert.deepEqual(broken.sort(), all_broken.sort());
 
         check_files(files, defaults);
         done();
@@ -152,11 +153,11 @@ describe('metalsmith-linkcheck', function() {
               }
               assert.pathExists(test_defaults.checkFile);
               check = jsonfile.readFileSync(test_defaults.checkFile);
-              assert.deepEqual(_.keys(check).sort(), external_working.sort());
+              powerAssert.deepEqual(_.keys(check).sort(), external_working.sort());
 
               assert.pathExists(test_defaults.failFile);
               var broken = jsonfile.readFileSync(test_defaults.failFile);
-              assert.deepEqual(broken.sort(), all_broken.sort());
+              powerAssert.deepEqual(broken.sort(), all_broken.sort());
 
               check_files(files, defaults);
               callback();
@@ -171,12 +172,12 @@ describe('metalsmith-linkcheck', function() {
               }
               assert.pathExists(test_defaults.checkFile);
               var second_check = jsonfile.readFileSync(test_defaults.checkFile);
-              assert.deepEqual(_.keys(second_check).sort(), external_working.sort());
-              assert.deepEqual(second_check, check);
+              powerAssert.deepEqual(_.keys(second_check).sort(), external_working.sort());
+              powerAssert.deepEqual(second_check, check);
 
               assert.pathExists(test_defaults.failFile);
               var broken = jsonfile.readFileSync(test_defaults.failFile);
-              assert.deepEqual(broken.sort(), all_broken.sort());
+              powerAssert.deepEqual(broken.sort(), all_broken.sort());
 
               check_files(files, defaults);
               done();
@@ -206,12 +207,12 @@ describe('metalsmith-linkcheck', function() {
         }
         assert.pathExists(test_defaults.checkFile);
         check = jsonfile.readFileSync(test_defaults.checkFile);
-        assert.deepEqual(_.keys(check).sort(), _.difference(external_working, ignore).sort());
+        powerAssert.deepEqual(_.keys(check).sort(), _.difference(external_working, ignore).sort());
 
         assert.pathExists(test_defaults.failFile);
         var broken = jsonfile.readFileSync(test_defaults.failFile);
         var our_broken = _.difference(all_broken, ignore);
-        assert.deepEqual(broken.sort(), our_broken.sort());
+        powerAssert.deepEqual(broken.sort(), our_broken.sort());
 
         check_files(files, defaults);
         reset_files(test_defaults);

@@ -1,11 +1,9 @@
 # metalsmith-linkcheck
 
-This is a plugin for [Metalsmith][] that checks links&mdash;both internal and
+This is a plugin for [Metalsmith](http://metasmith.io) that checks links&mdash;both internal and
 external. (In contrast to
 [metalsmith-broken-link-checker](https://github.com/davidxmoody/metalsmith-broken-link-checker),
 which only checks internal links.)
-
-[metalsmith]: http://metalsmith.io
 
 ## Installation
 
@@ -27,7 +25,7 @@ If using the CLI for Metalsmith, metalsmith-linkcheck can be used like any other
 }
 ```
 
-For metalsmiths JavaScript API, metalsmith-linkcheck can be used like any other plugin, by attaching it to the function invocation chain on the metalscript object:
+For Metalsmith's JavaScript API, metalsmith-linkcheck can be used like any other plugin, by attaching it to the function invocation chain on the metalscript object:
 
 ```js
 var linkcheck = require('metalsmith-linkcheck');

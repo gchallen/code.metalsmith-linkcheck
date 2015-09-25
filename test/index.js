@@ -8,8 +8,7 @@ var metalsmith = require('metalsmith'),
     jsonfile = require('jsonfile'),
     async = require('async'),
     powerAssert = require('power-assert'),
-    linkcheck = require('..'),
-    linkcheckDefaults = require('../lib/linkcheckDefaults.js');
+    linkcheck = require('..');
 
 chai.use(require('chai-fs'));
 var assert = chai.assert;
@@ -62,9 +61,9 @@ var all_broken = internal_broken.concat(external_broken);
 describe('metalsmith-linkcheck', function() {
   it('should identify all broken links with the default parameters', function(done) {
     var src = 'test/fixtures/errors';
-    var defaults = _.clone(linkcheckDefaults.defaults);
+    var defaults = _.clone(linkcheck.defaults);
     defaults.verbose = false;
-    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
+    var test_defaults = linkcheck.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
     metalsmith(src)
@@ -88,10 +87,10 @@ describe('metalsmith-linkcheck', function() {
   
   it('should identify only internal broken links when asked to fail', function(done) {
     var src = 'test/fixtures/errors';
-    var defaults = _.clone(linkcheckDefaults.defaults);
+    var defaults = _.clone(linkcheck.defaults);
     defaults.verbose = false;
     defaults.failMissing = true;
-    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
+    var test_defaults = linkcheck.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
     metalsmith(src)
@@ -112,10 +111,10 @@ describe('metalsmith-linkcheck', function() {
 
   it('should not cache links checks when told not to', function(done) {
     var src = 'test/fixtures/errors';
-    var defaults = _.clone(linkcheckDefaults.defaults);
+    var defaults = _.clone(linkcheck.defaults);
     defaults.verbose = false;
     defaults.cacheChecks = false;
-    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
+    var test_defaults = linkcheck.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
 
     metalsmith(src)
@@ -137,9 +136,9 @@ describe('metalsmith-linkcheck', function() {
   
   it('should cache links checks when told to', function(done) {
     var src = 'test/fixtures/errors';
-    var defaults = _.clone(linkcheckDefaults.defaults);
+    var defaults = _.clone(linkcheck.defaults);
     defaults.verbose = false;
-    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
+    var test_defaults = linkcheck.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
     
     var check;
@@ -193,9 +192,9 @@ describe('metalsmith-linkcheck', function() {
       "http://www.yahoo.com"
     ];
     var src = 'test/fixtures/errors';
-    var defaults = _.clone(linkcheckDefaults.defaults);
+    var defaults = _.clone(linkcheck.defaults);
     defaults.verbose = false;
-    var test_defaults = linkcheckDefaults.processConfig(defaults, path.join(src, 'src'));
+    var test_defaults = linkcheck.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
     jsonfile.writeFileSync(test_defaults.ignoreFile, ignore);
 

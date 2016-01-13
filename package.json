@@ -27,9 +27,10 @@
     "async": "^1.4.2",
     "cheerio": "^0.19.0",
     "debug": "^2.2.0",
+    "dev-null": "^0.1.1",
     "fs": "0.0.2",
     "jsonfile": "^2.2.2",
-    "request": "^2.62.0",
+    "request": "^2.67.0",
     "underscore": "^1.8.3",
     "validator": "^4.0.5"
   },

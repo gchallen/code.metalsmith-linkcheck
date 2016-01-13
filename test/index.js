@@ -1,5 +1,3 @@
-require('harmonize')(['harmony-generators']);
-
 var metalsmith = require('metalsmith'),
     fs = require('fs'),
     path = require('path'),

@@ -42,6 +42,18 @@ local links are checked by looking for them in the metalsmith files array,
 and so this may not work if you using local links to things not included in
 your Metalsmith build.
 
+## Exceptions
+
+metalsmith-linkcheck will ignore links that have or are descendants of
+elements with the class `link_exception`. For example, both of these links
+will not be checked:
+
+```html
+<a href="broken.html" class="link_exception">This link will be skipped.</a>
+<span class="link_exception"><a href="broken.html">So will this
+one.</a></span>
+```
+
 ### Options
 
 metalsmith-linkcheck does not require any options, but the following options

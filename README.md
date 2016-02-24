@@ -63,7 +63,11 @@ are available:
 
 (default: *false*)
 
-If set a message will be printed if links fail. 
+#### `timeout` (s) (optional)
+
+(default: *15* s)
+
+Timeout after which a link will be marked as down. 15 s by default.
 
 #### `failWithoutNetwork` (optional)
 

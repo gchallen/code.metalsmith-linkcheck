@@ -70,5 +70,13 @@
 <!-- Broken external Javascript link (sorry Google). -->
 <script src="http://www.google.com/broken.js"></script>
 
+<!-- Ignored broken external Javascript link (sorry Google). -->
+<script class="link_exception" src="http://www.google.com/missing.js"></script>
+
+<!-- Ignored broken external link as ancestor -->
+<div class="link_exception">
+	<a href="http://www.google.com/anotherjs">Broken</a>
+</div>
+
 </body>
 </html>

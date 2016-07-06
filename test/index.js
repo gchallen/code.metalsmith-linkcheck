@@ -44,7 +44,8 @@ var external_broken = [
   "https://www.google.com/broken.css",
   "https://g.twimg.com/broken.png",
   "http://www.google.com/broken.html",
-  "http://www.google.com/broken.js"
+  "http://www.google.com/broken.js",
+	"https://www.linkedin.com/pub/geoffrey-challen/1a/b77/572"
 ];
 var external_working = [
   "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",

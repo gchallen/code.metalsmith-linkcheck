@@ -52,7 +52,8 @@ var external_working = [
   "https://g.twimg.com/twitter-bird-16x16.png",
   "http://www.facebook.com",
   "http://www.yahoo.com",
-  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js",
+	"https://goo.gl/9KR1PT"
 ];
 
 var all_broken = internal_broken.concat(external_broken);

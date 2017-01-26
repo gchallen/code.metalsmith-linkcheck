@@ -3,5 +3,4 @@ node_js:
   - "6.5"
 dist: trusty
 sudo: false
-
 # vim: ts=2:sw=2:et

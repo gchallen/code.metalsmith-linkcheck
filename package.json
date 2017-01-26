@@ -24,21 +24,21 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^2.0.1",
-    "cheerio": "^0.20.0",
-    "debug": "^2.2.0",
+    "async": "^2.1.4",
+    "cheerio": "^0.22.0",
+    "debug": "^2.6.0",
     "dev-null": "^0.1.1",
     "fs": "0.0.2",
-    "jsonfile": "^2.3.1",
-    "request": "^2.74.0",
+    "jsonfile": "^2.4.0",
+    "request": "^2.79.0",
     "underscore": "^1.8.3",
-    "validator": "^5.5.0"
+    "validator": "^6.2.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-fs": "^0.1.0",
-    "metalsmith": "^2.0.1",
-    "mocha": "^2.5.3",
-    "power-assert": "^1.4.1"
+    "chai-fs": "^1.0.0",
+    "metalsmith": "^2.3.0",
+    "mocha": "^3.2.0",
+    "power-assert": "^1.4.2"
   }
 }

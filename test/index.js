@@ -79,12 +79,12 @@ describe('metalsmith-linkcheck', function() {
 
         var broken = jsonfile.readFileSync(test_defaults.failFile);
         powerAssert.deepEqual(broken.sort(), all_broken.sort());
-        
+
         check_files(files, defaults);
         done();
       });
   });
-  
+
   it('should identify only internal broken links when asked to fail', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheck.defaults);
@@ -133,14 +133,14 @@ describe('metalsmith-linkcheck', function() {
         done();
       });
   });
-  
+
   it('should cache links checks when told to', function(done) {
     var src = 'test/fixtures/errors';
     var defaults = _.clone(linkcheck.defaults);
     defaults.verbose = false;
     var test_defaults = linkcheck.processConfig(defaults, path.join(src, 'src'));
     reset_files(test_defaults);
-    
+
     var check;
     async.series([
         function (callback) {
@@ -184,7 +184,7 @@ describe('metalsmith-linkcheck', function() {
         }
     ]);
   });
-  
+
   it('should ignore links when told to', function(done) {
     var ignore = [
       "/assets/css/broken.css",

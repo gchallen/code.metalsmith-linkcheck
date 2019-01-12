@@ -37,6 +37,7 @@ var internal_broken = [
   "/assets/img/broken.jpg",
   "/broken.jpg",
   "/broken.html",
+  "/alsobroken.html",
   "/www.broken.com",
   "/assets/js/broken.js",
 ];
